@@ -13,11 +13,12 @@ import {
 } from "react-native";
 
 const initialState = {
+  name: "",
   email: "",
   password: "",
 };
 
-export const LoginScreen = () => {
+export const RegistrationScreen = ({ navigation }) => {
   const [state, setState] = useState(initialState);
   const [isShowKeyboard, setIsShowKeyboard] = useState(false);
 
@@ -37,7 +38,7 @@ export const LoginScreen = () => {
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={keyboardHide}>
         <ImageBackground
-          source={require("../assets/PhotoBG.jpg")}
+          source={require("../../assets/PhotoBG.jpg")}
           style={styles.image}
         >
           <KeyboardAvoidingView
@@ -50,8 +51,21 @@ export const LoginScreen = () => {
               }}
             >
               <View style={styles.form}>
-                <Text style={styles.title}> Login</Text>
-
+                <Text style={styles.title}>Registration</Text>
+                <View>
+                  <TextInput
+                    onChangeText={value =>
+                      setState(prevState => ({
+                        ...prevState,
+                        name: value,
+                      }))
+                    }
+                    onFocus={() => setIsShowKeyboard(true)}
+                    value={state.name}
+                    style={styles.input}
+                    placeholder="Name"
+                  />
+                </View>
                 <View>
                   <TextInput
                     onChangeText={value =>
@@ -86,14 +100,17 @@ export const LoginScreen = () => {
                     style={styles.btn}
                     onPress={formSubmit}
                   >
-                    <Text style={{ color: "#fff" }}>Sign in</Text>
+                    <Text style={{ color: "#fff" }}>Sign up</Text>
                   </TouchableOpacity>
                   <Text
                     style={{
                       color: "#1B4371",
                     }}
                   >
-                    Dont have acount?<Text>Register</Text>
+                    Already have acount?
+                    <Text onPress={() => navigation.navigate("Login")}>
+                      Log in
+                    </Text>
                   </Text>
                 </View>
               </View>

@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { RegistrationScreen } from "./Screens/RegistrationScreen";
+import { NavigationContainer } from "@react-navigation/native";
 import * as Font from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+import { useRoute } from "./router";
+
 export default function App() {
   const [isReady, setIsReady] = useState(false);
+  const routing = useRoute({});
 
   useEffect(() => {
     async function loadFonts() {
@@ -28,5 +31,5 @@ export default function App() {
   if (!isReady) {
     return null;
   }
-  return <RegistrationScreen />;
+  return <NavigationContainer>{routing}</NavigationContainer>;
 }
